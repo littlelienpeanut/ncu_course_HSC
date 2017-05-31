@@ -1,5 +1,4 @@
 from urllib.request import urlretrieve
-from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from datetime import datetime, date, timedelta
 
@@ -9,24 +8,27 @@ def date_range(start, stop, step):
         start += step
 
 
-def get_file():
-
-    original_url = "http://tisvcloud.freeway.gov.tw/history/TDCS/M03A/"
-    print(original_url)
-    bsObj = BeautifulSoup(original_url)
-    for link in bsObj.findAll("a"):
-        if 'href' in link.attrs:
-            print(link.attrs['href'])
-            try:
-                if link.attrs['href'][0] == 'T':
-                    urlretrieve(original_url+link.attrs['href'], link.attrs['href'])
-                    print(link.attrs['href'])
-            except:
-                print("FAIL\n")
+def get_file(input):
+    #M03A_20161008.tar.gz
+    #http://tisvcloud.freeway.gov.tw/history/TDCS/M05A/M05A_20170312.tar.gz
+    #http://tisvcloud.freeway.gov.tw/history/TDCS/M03A/M03A_20160101.tar.gz
+    original_url = "http://tisvcloud.freeway.gov.tw/history/TDCS/M05A/M05A_"
+    url = original_url + input + ".tar.gz"
+    file_name = input + ".tar.gz"
+    urlretrieve(url, file_name)
 
 def main():
 
-    get_file()
+    #get_file()
+    begin = date(2016, 1, 1)
+    end = date(2016, 12, 31)
+    delta = end - begin
+
+    for i in range(delta.days + 1):
+        day = str(begin + timedelta(days=i))
+        day = day.replace("-","")
+        get_file(day)
+        print(day)
 
 
 if __name__ == '__main__':

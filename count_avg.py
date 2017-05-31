@@ -33,8 +33,7 @@ def main():
     next_data = []
     file_list = []
     file_count = 0
-    out_file_count = 0
-    filename_count = 1
+
 
     #main
     for item in os.listdir("./"):
@@ -42,10 +41,11 @@ def main():
             file_list.append(item)
 
     file_list.sort()
+    data_num = len(file_list) * 1.0
 
-    print(file_list)
+
     for file in file_list:
-        if file_count < 71:
+
             if file_count == 0:
                 data = load_csv(file)
 
@@ -54,33 +54,18 @@ def main():
                 data = data_combine(data, next_data)
                 file_count += 1
 
-        else:
-            file_count = 0
-            out_file_count += 1
-            filename = data[0]["time"]
 
-            with open("M03_" + filename + "_" + str(filename_count) + ".csv", "w") as fout:
-                wr = csv.writer(fout)
+    with open("926.csv", "w") as fout:
+        wr = csv.writer(fout)
 
-                for i in range(len(data)):
-                    value = []
-                    value.append(data[i]["time"])
-                    value.append(data[i]["spot"])
-                    value.append(data[i]["ns"])
-                    value.append(data[i]["cate"])
-                    value.append(data[i]["num"])
-                    wr.writerow(value)
-
-
-            if filename_count < 4:
-                filename_count += 1
-            else:
-                filename_count = 0
-
-    print(data[0]["num"])
-
-
-
+        for i in range(len(data)):
+            value = []
+            value.append(data[i]["time"])
+            value.append(data[i]["spot"])
+            value.append(data[i]["ns"])
+            value.append(data[i]["cate"])
+            value.append(data[i]["num"]/data_num)
+            wr.writerow(value)
 
 
 
