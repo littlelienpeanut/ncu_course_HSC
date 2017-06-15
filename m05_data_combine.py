@@ -7,21 +7,24 @@ def load_csv(file_name):
     data_out = []
     with open(file_name, "r") as f:
         content = f.readlines()
+        #print("load " + file_name)
         for item in content:
             data = []
             tdict = {}
             data = item.split(",")
             tdict.update({"time":data[0]})
-            tdict.update({"spot":data[1]})
-            tdict.update({"ns":data[2]})
+            tdict.update({"spot_s":data[1]})
+            tdict.update({"spot_g":data[2]})
             tdict.update({"cate":data[3]})
-            tdict.update({"num":int(data[4][:-1])})
+            tdict.update({"spd":int(data[4])})
+            tdict.update({"num":int(data[5][:-1])})
             data_out.append(tdict)
 
         return data_out
 
 def data_combine(data, csv):
     for i in range(len(data)):
+        data[i]["spd"] = (data[i]["spd"] + csv[i]["spd"])/2
         data[i]["num"] = data[i]["num"] + csv[i]["num"]
 
     return data
@@ -37,13 +40,14 @@ def main():
     filename_count = 1
 
     #main
+
     for item in os.listdir("./"):
         if str(item).find(".csv") != -1:
             file_list.append(item)
 
     file_list.sort()
 
-    print(file_list)
+    #print(file_list)
     for file in file_list:
         if file_count < 71:
             if file_count == 0:
@@ -57,17 +61,24 @@ def main():
         else:
             file_count = 0
             out_file_count += 1
-            filename = data[0]["time"]
+            filename_1 = data[0]["time"][0:4]
+            filename_2 = data[0]["time"][5:7]
+            filename_3 = data[0]["time"][8:10]
+            filename = filename_1 + "-" + filename_2 + "-" + filename_3
+            print(filename)
 
-            with open("M03_" + filename + "_" + str(filename_count) + ".csv", "w") as fout:
+            with open("M05_" + filename + "_" + str(filename_count) + ".csv", "w") as fout:
+                print("writing " + filename)
                 wr = csv.writer(fout)
-
+                #title = ["time", "spot_s", "spot_g", "cate", "spd", "num"]
+                #wr.writerow(title)
                 for i in range(len(data)):
                     value = []
                     value.append(data[i]["time"])
-                    value.append(data[i]["spot"])
-                    value.append(data[i]["ns"])
+                    value.append(data[i]["spot_s"])
+                    value.append(data[i]["spot_g"])
                     value.append(data[i]["cate"])
+                    value.append(data[i]["spd"])
                     value.append(data[i]["num"])
                     wr.writerow(value)
 
@@ -75,13 +86,7 @@ def main():
             if filename_count < 4:
                 filename_count += 1
             else:
-                filename_count = 0
-
-    print(data[0]["num"])
-
-
-
-
+                filename_count = 1
 
 
 

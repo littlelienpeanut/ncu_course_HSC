@@ -20,8 +20,8 @@ def get_file(input):
 def main():
 
     #get_file()
-    begin = date(2016, 1, 1)
-    end = date(2016, 12, 31)
+    begin = date(2016, 5, 1)
+    end = date(2016, 11, 1)
     delta = end - begin
 
     for i in range(delta.days + 1):
