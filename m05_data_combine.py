@@ -24,7 +24,7 @@ def load_csv(file_name):
 
 def data_combine(data, csv):
     for i in range(len(data)):
-        data[i]["spd"] = (data[i]["spd"] + csv[i]["spd"])/2
+        data[i]["spd"] = (data[i]["spd"] + csv[i]["spd"])
         data[i]["num"] = data[i]["num"] + csv[i]["num"]
 
     return data
@@ -78,7 +78,7 @@ def main():
                     value.append(data[i]["spot_s"])
                     value.append(data[i]["spot_g"])
                     value.append(data[i]["cate"])
-                    value.append(data[i]["spd"])
+                    value.append(data[i]["spd"]/72)
                     value.append(data[i]["num"])
                     wr.writerow(value)
 

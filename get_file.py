@@ -1,5 +1,4 @@
 from urllib.request import urlretrieve
-from bs4 import BeautifulSoup
 from datetime import datetime, date, timedelta
 
 def date_range(start, stop, step):

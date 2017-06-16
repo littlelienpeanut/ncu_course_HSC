@@ -186,17 +186,54 @@ def data_split(feature, label, size):
 
     return tr_x, tr_y, te_x, te_y
 
-def change_to_level_s1(input):
+def change_to_level_s1(input, j):
         list_out = []
         for i in range(len(input)):
             tmp_list = []
 
-            if input[i][0] < 63:
-                list_out.append("slow")
-            elif input[i][0] > 77:
-                list_out.append("fast")
+            if j == 0:
+
+                if input[i][0] < 60:
+                    list_out.append("slow")
+                elif input[i][0] > 72:
+                    list_out.append("fast")
+                else:
+                    list_out.append("normal")
+
+            elif j == 2:
+                if input[i][0] < 63:
+                    list_out.append("slow")
+                elif input[i][0] > 77:
+                    list_out.append("fast")
+                else:
+                    list_out.append("normal")
+
+            elif j == 4:
+                if input[i][0] < 80:
+                    list_out.append("slow")
+                elif input[i][0] > 90:
+                    list_out.append("fast")
+                else:
+                    list_out.append("normal")
+
+            elif j == 6 or j == 8:
+                if input[i][0] < 77:
+                    list_out.append("slow")
+                elif input[i][0] > 93:
+                    list_out.append("fast")
+                else:
+                    list_out.append("normal")
+
+            elif j == 10:
+                if input[i][0] < 78:
+                    list_out.append("slow")
+                elif input[i][0] > 94:
+                    list_out.append("fast")
+                else:
+                    list_out.append("normal")
+
             else:
-                list_out.append("normal")
+                pass
 
         return list_out
 
@@ -242,8 +279,8 @@ class Run:
             knn_tr_pred_1.append(knn.predict([te_x[i]]))
 
 
-        knn_tr_pred_1 = change_to_level_s1(knn_tr_pred_1)
-        te_y = change_to_level_s1(te_y)
+        knn_tr_pred_1 = change_to_level_s1(knn_tr_pred_1, j)
+        te_y = change_to_level_s1(te_y, j)
 
         for i in range(len(te_x)):
             if knn_tr_pred_1[i] == te_y[i]:
@@ -259,8 +296,8 @@ class Run:
             knn_tr_pred_2.append(knn.predict([te_x[i]]))
 
 
-        knn_tr_pred_2 = change_to_level_s1(knn_tr_pred_2)
-        te_y = change_to_level_s1(te_y)
+        knn_tr_pred_2 = change_to_level_s1(knn_tr_pred_2, j)
+        te_y = change_to_level_s1(te_y, j)
 
         for i in range(len(te_x)):
             if knn_tr_pred_2[i] == te_y[i]:
@@ -276,8 +313,8 @@ class Run:
             knn_tr_pred_3.append(knn.predict([te_x[i]]))
 
 
-        knn_tr_pred_3 = change_to_level_s1(knn_tr_pred_3)
-        te_y = change_to_level_s1(te_y)
+        knn_tr_pred_3 = change_to_level_s1(knn_tr_pred_3, j)
+        te_y = change_to_level_s1(te_y, j)
 
         for i in range(len(te_x)):
             if knn_tr_pred_3[i] == te_y[i]:
@@ -293,8 +330,8 @@ class Run:
             knn_tr_pred_4.append(knn.predict([te_x[i]]))
 
 
-        knn_tr_pred_4 = change_to_level_s1(knn_tr_pred_4)
-        te_y = change_to_level_s1(te_y)
+        knn_tr_pred_4 = change_to_level_s1(knn_tr_pred_4, j)
+        te_y = change_to_level_s1(te_y, j)
 
         for i in range(len(te_x)):
             if knn_tr_pred_4[i] == te_y[i]:
