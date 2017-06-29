@@ -67,7 +67,7 @@ def main():
             filename = filename_1 + "-" + filename_2 + "-" + filename_3
             print(filename)
 
-            with open("M05_" + filename + "_" + str(filename_count) + ".csv", "w") as fout:
+            with open("../m05_6h/M05_" + filename + "_" + str(filename_count) + ".csv", "w") as fout:
                 print("writing " + filename)
                 wr = csv.writer(fout)
                 #title = ["time", "spot_s", "spot_g", "cate", "spd", "num"]
